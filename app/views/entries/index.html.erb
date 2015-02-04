@@ -1,4 +1,8 @@
+<%= link_to("Back to Projects", projects_path) %> | 
+<%= link_to("Create New Entry", new_project_entry_path)%>
+
 <h1><%= @project.name %></h1>
+<p>Total hours worked for the month of <%= @project.monthly_hours(@date.month, @date.year)%> </p>
 <ul>
 	 <% @entries.each do |entry| %>
 		 <li>
@@ -6,5 +10,6 @@
 			 <%= entry.minutes %> m -
 			 <%= entry.date %>
 		 </li>
+		 <%= link_to("Edit Entry", edit_project_entry_path(@project, entry)) %>
 	 <% end %>
 </ul>
