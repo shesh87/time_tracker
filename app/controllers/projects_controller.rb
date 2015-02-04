@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		# @project = Project.find(params[:id])
+		@project = Project.find(params[:id])
 		unless @project = Project.find_by(id: params[:id])
 			render 'not_found'
 		end
