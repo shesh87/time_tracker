@@ -7,8 +7,9 @@ class EntriesController < ApplicationController
 		@hours = @project.monthly_hours(2015, 02)
 	end
 
-	def show
-
+	def new
+		@project = Project.find(params[:project_id])
+		@entry = @project.entries.new
 	end
 
 end

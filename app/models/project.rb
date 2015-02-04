@@ -3,8 +3,8 @@ class Project < ActiveRecord::Base
 
 	validates :name, uniqueness: true
 	validates :name, presence: true
-	validates :name, length: (maximum: 30)
-	validates :description, length: (minimum: 100)
+	validates :name, length: {maximum: 30}
+	# validates :name, format: (w)
 
 	def self.iron_find(id)
 		where(id: id).first
