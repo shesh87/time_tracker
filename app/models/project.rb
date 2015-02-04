@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
 	validates :name, uniqueness: true
 	validates :name, presence: true
 	validates :name, length: {maximum: 30}
-	# validates :name, format: (w)
+	validates :name, format: {with: /\W [0-9]/}
 
 	def self.iron_find(id)
 		where(id: id).first
@@ -19,12 +19,16 @@ class Project < ActiveRecord::Base
 		order(created_at: :desc).limit(amount)
 	end
 
-	def monthly_hours(year, month)
-		@date = DateTime.new(year, month)
-		@es = entries.where(date: beginning_of_month..end_of_month)
+	def entries_for(date)
+		entries.where(date: beginning_of_month..end_of_month)
+	end
+
+	def monthly_hours(month, year)
+		date = DateTime.new(year, month)
+		es = entries_for(date)
 		hours = 0
 		minutes = 0
-		@entries.each do |entry|
+		entries.each do |entry|
 			hours += entry.hour
 			minutes += entry.minutes
 		end
