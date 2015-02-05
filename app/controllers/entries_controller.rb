@@ -22,6 +22,7 @@ class EntriesController < ApplicationController
 		if @entry.save
 			flash[:notice] = "Entry created succesfully"
 			# redirect_to action: "index", controller: "entries", project_id: @project.id
+			UserMailer.entry_created(@project).deliver
 			redirect_to(project_entries_path(@project))
 		else
 			flash[:error] = "Entry was not created"

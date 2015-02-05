@@ -7,4 +7,5 @@ class Entry < ActiveRecord::Base
 	validates :minutes, presence: true
 	validates :date, presence: true
 	validates_associated :project
+
 end
