@@ -1,15 +1,20 @@
 <%= link_to("Back to Projects", projects_path) %> | 
 <%= link_to("Create New Entry", new_project_entry_path)%>
 
+<% if flash[:notice] %>
+	<%= flash[:notice] %>
+<% end %>
+
 <h1><%= @project.name %></h1>
-<p>Total hours worked for the month of <%= @project.monthly_hours(@date.month, @date.year)%> </p>
+<p>Total of <b><%= @project.monthly_hours(@date.month, @date.year)%> hours</b> worked for the current month.</p>
 <ul>
 	 <% @entries.each do |entry| %>
 		 <li>
 			 <%= entry.hours %> h
 			 <%= entry.minutes %> m -
-			 <%= entry.date %>
+			 <%= entry.date %> | 
+		 	<button><%= link_to("Edit", edit_project_entry_path(@project, entry)) %></button>
+		 	<button><%= link_to("Delete", project_entry_path(@project, entry), method: :delete, data: {confirm: "Are you sure?"})%></button>
 		 </li>
-		 <%= link_to("Edit Entry", edit_project_entry_path(@project, entry)) %>
 	 <% end %>
 </ul>
